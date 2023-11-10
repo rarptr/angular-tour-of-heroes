@@ -2,6 +2,7 @@
 
 <div>
   <label for="new-hero">Hero name: </label>
+  <!-- TODO: ??? -->
   <input id="new-hero" #heroName />
 
   <!-- (click) passes input value to add() and then clears the input -->
@@ -12,7 +13,7 @@
 
 <ul class="heroes">
   <li *ngFor="let hero of heroes">
-    <!-- event binding -->
+    <!-- TODO: event binding -->
     <a routerLink="/detail/{{hero.id}}">
       <span class="badge">{{hero.id}}</span>
       {{hero.name}}

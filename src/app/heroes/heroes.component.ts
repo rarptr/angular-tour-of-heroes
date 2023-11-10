@@ -17,6 +17,7 @@ export class HeroesComponent implements OnInit {
     this.getHeroes();
   }
 
+  // TODO: 09:35 переделать на async pipe
   getHeroes(): void {
     this.heroService
       .getHeroes()
@@ -35,6 +36,7 @@ export class HeroesComponent implements OnInit {
       });
   }
 
+  // TODO: 09:45 Реализовать отписку (много разных способов, Павел использует takeUntil)
   delete(hero: Hero): void {
     this.heroes = this.heroes.filter((h) => h !== hero);
     this.heroService.deleteHero(hero.id).subscribe();

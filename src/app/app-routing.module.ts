@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
 
+// TODO: 13:50 Использовать LazyLoading. Разбить приложение на модули [dashboard / heroes].
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full', },
   { path: 'dashboard', component: DashboardComponent },

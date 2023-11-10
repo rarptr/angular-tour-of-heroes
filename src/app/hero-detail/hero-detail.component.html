@@ -1,12 +1,19 @@
+<!-- TODO: 03:15 | Поправить UX, вывести альтернативный текст "герой не найден" | Поправить кнопку для возврата назад -->
 <div *ngIf="hero">
   <h2>{{hero.name | uppercase}} Details</h2>
   <div><span>id: </span>{{hero.id}}</div>
   <div>
     <label for="hero-name">Hero name: </label>
+    <!-- TODO: 04:12 | Переписать на реактивную форму -->
+    <!-- TODO: 05:30 | Добавить синхронную валидацию для проверки поля на пустоту
+                       Добавить ассинхронный валидатор на уникальность пользователя -->
     <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name" />
   </div>
+  <!-- TODO: 06:30 | Выкинуть пользователю alert об не сохранённых данных (с помощью гвардов) -->
   <button type="button" (click)="goBack()">
     go back
   </button>
   <button type="button" (click)="save()">save</button>
 </div>
+
+

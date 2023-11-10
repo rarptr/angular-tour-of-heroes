@@ -16,6 +16,8 @@ export class DashboardComponent implements OnInit {
         this.getHeroes();
     }
 
+    // TODO: лучше не подписываться явно в компоненте
+    // сделать через async pipe
     getHeroes(): void {
         this.heroService
             .getHeroes()

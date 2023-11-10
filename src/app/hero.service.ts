@@ -10,6 +10,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Hero } from './hero';
 import { MessageService } from './message.service';
 
+// TODO: 24:40 Обрабатывать ошибки на уровне компонента, а не сервиса (next, error, complete)
+
 @Injectable({ providedIn: 'root' })
 export class HeroService {
   private heroesUrl = 'api/heroes'; // URL to web api
