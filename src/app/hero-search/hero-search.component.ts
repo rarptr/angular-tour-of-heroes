@@ -18,7 +18,7 @@ import { HeroService } from '../hero.service';
 })
 export class HeroSearchComponent implements OnInit {
   heroes$!: Observable<Hero[]>;
-  // TODO: 09:00 Будет не нужен, когда переделаю на реактивную форму (valueChanges)
+  // [ ] 09:00 Будет не нужен, когда переделаю на реактивную форму (valueChanges)
   private searchTerms = new Subject<string>();
 
   constructor(private heroService: HeroService) { }

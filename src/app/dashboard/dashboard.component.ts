@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { Observable, map, of } from 'rxjs';
 
 @Component({
     selector: 'app-dashboard',
@@ -8,22 +9,14 @@ import { HeroService } from '../hero.service';
     styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-    heroes: Hero[] = [];
+    heroes$!: Observable<Hero[]>;
 
-    constructor(private heroService: HeroService) {}
+    constructor(private heroService: HeroService) { }
 
     ngOnInit(): void {
-        this.getHeroes();
-    }
-
-    // TODO: лучше не подписываться явно в компоненте
-    // сделать через async pipe
-    getHeroes(): void {
-        this.heroService
+        // [x] map преобразует коллекцию, обрезая её
+        this.heroes$ = this.heroService
             .getHeroes()
-            .subscribe(
-                (heroes) =>
-                    (this.heroes = heroes.slice(1, 5))
-            );
+            .pipe(map(heroes => heroes.slice(1, 5)));
     }
 }

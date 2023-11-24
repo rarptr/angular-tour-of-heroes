@@ -10,7 +10,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Hero } from './hero';
 import { MessageService } from './message.service';
 
-// TODO: 24:40 Обрабатывать ошибки на уровне компонента, а не сервиса (next, error, complete)
+// [ ] 24:40 Обрабатывать ошибки на уровне компонента, а не сервиса (next, error, complete)
 
 @Injectable({ providedIn: 'root' })
 export class HeroService {
@@ -156,10 +156,10 @@ export class HeroService {
     result?: T
   ) {
     return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
+      // [ ] send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
-      // TODO: better job of transforming error for user consumption
+      // [ ] better job of transforming error for user consumption
       this.log(
         `${operation} failed: ${error.message}`
       );

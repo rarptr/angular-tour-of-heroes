@@ -23,7 +23,7 @@ export class HeroDetailComponent implements OnInit {
     this.getHero();
   }
 
-  // TODO: 02:40
+  // [ ] 02:40
   // snapshot - статические параметры, лучше сделать через динамические (Observable с зашитым id)
   // SwitchMap
   // AsyncPipe
