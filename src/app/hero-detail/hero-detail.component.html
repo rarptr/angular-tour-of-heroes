@@ -1,19 +1,28 @@
-<!-- [ ] 03:15 | Поправить UX, вывести альтернативный текст "герой не найден" | Поправить кнопку для возврата назад -->
-<div *ngIf="hero">
-  <h2>{{hero.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{hero.id}}</div>
-  <div>
-    <label for="hero-name">Hero name: </label>
-    <!-- [ ] 04:12 | Переписать на реактивную форму -->
-    <!-- [ ] 05:30 | Добавить синхронную валидацию для проверки поля на пустоту
-                       Добавить ассинхронный валидатор на уникальность пользователя -->
-    <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name" />
-  </div>
-  <!-- [ ] 06:30 | Выкинуть пользователю alert об не сохранённых данных (с помощью гвардов) -->
-  <button type="button" (click)="goBack()">
-    go back
-  </button>
-  <button type="button" (click)="save()">save</button>
-</div>
+<div *ngIf="!(isLoaded$ | async)">
+  <!-- [x] 03:15 | Поправить UX, вывести альтернативный текст "герой не найден" | Поправить кнопку для возврата назад -->
+  <div *ngIf="hero$ | async">
+    <h2>{{(hero$ | async)?.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{(hero$ | async)?.id}}</div>
+    <div>
+      <label for="hero-name">hero name: </label>
+      <!-- [x] 04:12 | Переписать на реактивную форму -->
+      <!-- [x] 05:30 | Добавить синхронную валидацию для проверки поля на пустоту
+         [ ]       | Добавить ассинхронный валидатор на уникальность пользователя -->
 
-// [ ] В Angular приложении unsubscribe() обычно вызывается на стадии жизненного цикла OnDestroy() того компонента, в котором используется Observable. 
+      <!-- [x] | Переписать на реактивную форму -->
+      <input id="hero-name" required [formControl]="heroName" placeholder="hero name" />
+    </div>
+    <!-- [ ] 06:30 | Выкинуть пользователю alert об не сохранённых данных (с помощью гвардов) -->
+    <button type="button" (click)="goBack()">
+      go back
+    </button>
+    <button type="button" [disabled]="heroName.invalid" (click)="save()">save</button>
+  </div>
+  <div *ngIf="!(hero$ | async)">
+    <p>Герой не найден</p>
+  </div>
+  <!-- [ ] В Angular приложении unsubscribe() обычно вызывается на стадии жизненного цикла OnDestroy() того компонента, в котором используется Observable.  -->
+</div>
+<div *ngIf="isLoaded$ | async">
+  <p>Загрузка...</p>
+</div>

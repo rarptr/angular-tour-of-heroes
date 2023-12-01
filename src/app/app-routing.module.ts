@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { HeroDetailComponent } from './hero-detail/hero-detail.component';
+import { DashboardComponent } from 'src/dashboard/dashboard/dashboard.component';
 
 // [ ] 13:50 Использовать LazyLoading. Разбить приложение на модули [dashboard / heroes].
 const routes: Routes = [

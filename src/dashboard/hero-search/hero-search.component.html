@@ -1,0 +1,14 @@
+<div id="search-component">
+  <label for="search-box">Hero Search</label>
+  <!-- [x] 08:45 Переделать на реактивную форму -->
+  <input id="search-box" [formControl]="heroSearch" />
+
+  <ul class="search-result">
+    <!-- TODO: правильный подход (неявная подписка вне компонента) -->
+    <li *ngFor="let hero of heroes$ | async">
+      <a routerLink="/detail/{{hero.id}}">
+        {{hero.name}}
+      </a>
+    </li>
+  </ul>
+</div>
