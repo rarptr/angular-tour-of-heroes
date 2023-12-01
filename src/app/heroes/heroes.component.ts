@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 
+import { BehaviorSubject } from 'rxjs';
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 
@@ -7,20 +8,15 @@ import { HeroService } from '../hero.service';
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
   styleUrls: ['./heroes.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeroesComponent implements OnInit {
-  heroes: Hero[] = [];
+export class HeroesComponent implements OnInit, OnDestroy {
+  heroes$ = new BehaviorSubject<Hero[]>([]);
 
   constructor(private heroService: HeroService) { }
 
   ngOnInit(): void {
-    this.getHeroes();
-  }
-
-  getHeroes(): void {
-    this.heroService
-      .getHeroes()
-      .subscribe((heroes) => (this.heroes = heroes));
+    this.heroService.getHeroes().subscribe(heroes => this.heroes$.next(heroes))
   }
 
   add(name: string): void {
@@ -28,15 +24,17 @@ export class HeroesComponent implements OnInit {
     if (!name) {
       return;
     }
-    this.heroService
-      .addHero({ name } as Hero)
-      .subscribe((hero) => {
-        this.heroes.push(hero);
-      });
+
+    // TODO: почему разрешён { name } as Hero
+    this.heroService.addHero({ name } as Hero).subscribe(hero => this.heroes$.next([...this.heroes$.getValue(), hero]));
   }
 
   delete(hero: Hero): void {
-    this.heroes = this.heroes.filter((h) => h !== hero);
-    this.heroService.deleteHero(hero.id).subscribe();
+    this.heroService.deleteHero(hero.id).subscribe(x => console.log(x));
+    this.heroes$.next(this.heroes$.getValue().filter(heroes => heroes.id !== hero.id));
+  }
+
+  ngOnDestroy(): void {
+    this.heroes$.unsubscribe();
   }
 }

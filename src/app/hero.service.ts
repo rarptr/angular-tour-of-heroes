@@ -57,9 +57,9 @@ export class HeroService {
     const url = `${this.heroesUrl}/${id}`;
     return this.http.get<Hero>(url).pipe(
       tap((_) => this.log(`fetched hero id=${id}`)),
-      catchError(
-        this.handleError<Hero>(`getHero id=${id}`)
-      )
+      // catchError(
+      //   this.handleError<Hero>(`getHero id=${id}`)
+      // )
     );
   }
 
@@ -154,10 +154,10 @@ export class HeroService {
     result?: T
   ) {
     return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
+      // [ ] send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
-      // TODO: better job of transforming error for user consumption
+      // [ ] better job of transforming error for user consumption
       this.log(
         `${operation} failed: ${error.message}`
       );

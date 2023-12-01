@@ -1,12 +1,20 @@
-<div *ngIf="hero">
-  <h2>{{hero.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{hero.id}}</div>
-  <div>
-    <label for="hero-name">Hero name: </label>
-    <input id="hero-name" [(ngModel)]="hero.name" placeholder="Hero name" />
+<div *ngIf="!(isLoaded$ | async)">
+  <div *ngIf="hero$ | async">
+    <h2>{{(hero$ | async)?.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{(hero$ | async)?.id}}</div>
+    <div>
+      <label for="hero-name">hero name: </label>
+      <input id="hero-name" required [formControl]="heroName" placeholder="hero name" />
+    </div>
+    <button type="button" (click)="goBack()">
+      go back
+    </button>
+    <button type="button" [disabled]="heroName.invalid" (click)="save()">save</button>
   </div>
-  <button type="button" (click)="goBack()">
-    go back
-  </button>
-  <button type="button" (click)="save()">save</button>
+  <div *ngIf="!(hero$ | async)">
+    <p>Герой не найден</p>
+  </div>
+</div>
+<div *ngIf="isLoaded$ | async">
+  <p>Загрузка...</p>
 </div>
